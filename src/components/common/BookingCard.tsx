@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Calendar, Clock, MapPin, ChevronRight } from 'lucide-react';
 import { Booking, BookingStatus } from '@/types';
 import { cn } from '@/lib/utils';
@@ -5,7 +6,6 @@ import { format } from 'date-fns';
 
 interface BookingCardProps {
   booking: Booking;
-  onClick?: () => void;
   showActions?: boolean;
 }
 
@@ -18,12 +18,13 @@ const statusConfig: Record<BookingStatus, { label: string; className: string }> 
   cancelled: { label: 'Cancelled', className: 'bg-destructive/10 text-destructive' },
 };
 
-export function BookingCard({ booking, onClick }: BookingCardProps) {
+export function BookingCard({ booking }: BookingCardProps) {
+  const navigate = useNavigate();
   const status = statusConfig[booking.status];
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => navigate(`/customer/booking/${booking.id}`)}
       className="w-full bg-card rounded-xl shadow-card border border-border p-4 text-left transition-all duration-200 hover:shadow-elevated active:scale-[0.98]"
     >
       <div className="flex gap-3">
