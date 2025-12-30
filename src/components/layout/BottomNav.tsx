@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Home, Calendar, User, Search, Briefcase, DollarSign, LayoutDashboard, Users, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserRole } from '@/types';
@@ -35,39 +35,44 @@ interface BottomNavProps {
 }
 
 export function BottomNav({ role }: BottomNavProps) {
+  const location = useLocation();
   const navItems = role === 'customer' ? customerNav : role === 'partner' ? partnerNav : adminNav;
+
+  const isActive = (path: string) => {
+    if (path.endsWith('/customer') || path.endsWith('/partner') || path.endsWith('/admin')) {
+      return location.pathname === path;
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border safe-bottom">
       <div className="flex items-center justify-around h-16 max-w-lg mx-auto px-2">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) =>
-              cn(
+        {navItems.map((item) => {
+          const active = isActive(item.path);
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={cn(
                 'flex flex-col items-center justify-center w-full h-full gap-1 text-xs font-medium transition-colors duration-200',
-                isActive
+                active
                   ? 'text-primary'
                   : 'text-muted-foreground hover:text-foreground'
-              )
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <div
-                  className={cn(
-                    'p-1.5 rounded-lg transition-all duration-200',
-                    isActive && 'bg-accent'
-                  )}
-                >
-                  {item.icon}
-                </div>
-                <span>{item.label}</span>
-              </>
-            )}
-          </NavLink>
-        ))}
+              )}
+            >
+              <div
+                className={cn(
+                  'p-1.5 rounded-lg transition-all duration-200',
+                  active && 'bg-accent'
+                )}
+              >
+                {item.icon}
+              </div>
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
