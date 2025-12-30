@@ -15,11 +15,18 @@ import LoginPage from "@/pages/auth/LoginPage";
 import CustomerHome from "@/pages/customer/CustomerHome";
 import ServicesPage from "@/pages/customer/ServicesPage";
 import ServiceDetail from "@/pages/customer/ServiceDetail";
+import CategoryPage from "@/pages/customer/CategoryPage";
 import BookingSchedule from "@/pages/customer/BookingSchedule";
 import BookingAddress from "@/pages/customer/BookingAddress";
 import BookingSummary from "@/pages/customer/BookingSummary";
+import BookingDetail from "@/pages/customer/BookingDetail";
 import CustomerBookings from "@/pages/customer/CustomerBookings";
 import CustomerProfile from "@/pages/customer/CustomerProfile";
+import EditProfile from "@/pages/customer/EditProfile";
+import SavedAddresses from "@/pages/customer/SavedAddresses";
+import WalletPage from "@/pages/customer/WalletPage";
+import MyReviews from "@/pages/customer/MyReviews";
+import SupportPage from "@/pages/customer/SupportPage";
 
 // Partner Pages
 import PartnerHome from "@/pages/partner/PartnerHome";
@@ -80,11 +87,18 @@ function AppRoutes() {
         <Route index element={<CustomerHome />} />
         <Route path="services" element={<ServicesPage />} />
         <Route path="service/:id" element={<ServiceDetail />} />
+        <Route path="category/:id" element={<CategoryPage />} />
         <Route path="booking/schedule" element={<BookingSchedule />} />
         <Route path="booking/address" element={<BookingAddress />} />
         <Route path="booking/summary" element={<BookingSummary />} />
+        <Route path="booking/:id" element={<BookingDetail />} />
         <Route path="bookings" element={<CustomerBookings />} />
         <Route path="profile" element={<CustomerProfile />} />
+        <Route path="profile/edit" element={<EditProfile />} />
+        <Route path="addresses" element={<SavedAddresses />} />
+        <Route path="wallet" element={<WalletPage />} />
+        <Route path="reviews" element={<MyReviews />} />
+        <Route path="support" element={<SupportPage />} />
       </Route>
 
       {/* Partner Routes */}
